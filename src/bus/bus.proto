@@ -2,9 +2,17 @@ syntax = "proto3";
 
 package bus;
 
+//Finnish cities examples as stops for the buses
+enum Stops {
+  Helsinki = 0;
+  Tampere = 1;
+  Turku = 2 ;
+  Oulu = 3 ;
+}
+
 service BusService {
-  rpc FindOne (BusById) returns (Bus);
-  rpc FindMany (Location) returns (stream Bus);
+  rpc FindBusById (BusById) returns (Bus);
+  rpc FindBusesSortedByClosest (Location) returns (stream Bus);
 }
 
 message BusById {
@@ -16,9 +24,8 @@ message Bus {
   float latitude = 2;
   float longitude = 3 ;
   float timestamp = 4;
+  Stops nextStop = 5 ;
 }
-
-message NoParam {}
 
 message Location {
   float latitude = 1;

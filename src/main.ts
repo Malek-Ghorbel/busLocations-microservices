@@ -3,6 +3,7 @@ import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { join } from 'path';
 import { AppModule } from './app.module';
 import { grpcClientOptions } from './grpc-client.options';
+import { mqttOptions } from './mqtt.options';
 
 async function bootstrap() {
   
@@ -21,7 +22,8 @@ async function bootstrap() {
    
   const app = await NestFactory.create(AppModule);
   app.connectMicroservice<MicroserviceOptions>(grpcClientOptions);
-
+  app.connectMicroservice<MicroserviceOptions>(mqttOptions);
+  
   await app.startAllMicroservices();
   // await app.listen(3001);
   // console.log(`Application is running on: ${await app.getUrl()}`);
